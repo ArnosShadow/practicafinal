@@ -8,12 +8,13 @@ export default function PageRegister(){
     const {register, handleSubmit, reset, formState: { errors }} = useForm();
     const router=useRouter();
     let respuesta;
-    function onSubmit(data){
+    async function onSubmit(data){
         console.log(data);
         try{
-            respuesta=postRegister(data);
+            respuesta=await postRegister(data);
             if (respuesta.token) {
                 localStorage.setItem('jwt', respuesta.token);
+                localStorage.setItem('name', respuesta.user.name);
                 router.push('/auth/validate');
                 reset();
             } else {

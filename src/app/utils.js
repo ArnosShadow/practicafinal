@@ -16,7 +16,10 @@ export async function getLoginAPI(datos) {
         if (!res.ok) {
             return res.status;
         }
+        
         const data = await res.json();
+        
+        localStorage.setItem('jwt',data.token);
         return data;
     } catch (error) {
         console.error("Error en la API de login:", error);
